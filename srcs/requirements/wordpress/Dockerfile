@@ -12,18 +12,22 @@ RUN apt-get update && apt-get install -y \
     mariadb-client \
     && rm -rf /var/lib/apt/lists/*
 
+# Install WP-CLI globally
+RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
+    && chmod +x wp-cli.phar \
+    && mv wp-cli.phar /usr/local/bin/wp
+
+# Ensure runtime directory exists
 RUN mkdir -p /run/php
 
 WORKDIR /var/www/html
 
-RUN wget https://wordpress.org/latest.tar.gz \
-    && tar -xzf latest.tar.gz --strip-components=1 \
-    && rm latest.tar.gz
-
-RUN chown -R www-data:www-data /var/www/html
-
+# Copy configuration and entrypoint script
 COPY conf/www.conf /etc/php/8.2/fpm/pool.d/www.conf
+COPY tools/entrypoint.sh /usr/local/bin/entrypoint.sh
+
+RUN chmod +x /usr/local/bin/entrypoint.sh
 
 EXPOSE 9000
 
-CMD ["php-fpm8.2", "-F"]
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
