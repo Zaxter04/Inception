@@ -37,8 +37,8 @@ services:
     env_file:
       - .env
     secrets:
-      - db_secrets
-      - db_secrets_root
+      - db_password
+      - db_password_root
 
 volumes:
   wordpress_data:
@@ -46,21 +46,21 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /home/<YOUR_LOGIN>/data/wordpress
+      device: /home/zasoulai/data/wordpress
 
   mariadb_data:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /home/<YOUR_LOGIN>/data/mariadb
+      device: /home/zasoulai/data/mariadb
 
 networks:
   inception:
     driver: bridge
 
 secrets:
-  db_secrets:
+  db_password:
     file: ../secrets/db_password.txt
-  db_secrets_root:
+  db_password_root:
     file: ../secrets/db_root_password.txt
