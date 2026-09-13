@@ -20,8 +20,8 @@ if [ ! -f /usr/local/bin/wp ]; then
 fi
 
 # Download & Install WordPress
-if [ ! -f /var/www/html/wp-config.php ]; then
-    wp core download --allow-root --path='/var/www/html' || true
+if [ ! -f /var/www/wordpress/wp-config.php ]; then
+    wp core download --allow-root --path='/var/www/wordpress' || true
 
     wp config create \
         --allow-root \
@@ -29,7 +29,7 @@ if [ ! -f /var/www/html/wp-config.php ]; then
         --dbuser="$MYSQL_USER" \
         --dbpass="$MYSQL_PASSWORD" \
         --dbhost="$MYSQL_HOSTNAME" \
-        --path='/var/www/html'
+        --path='/var/www/wordpress'
 
     wp core install \
         --allow-root \
@@ -38,17 +38,17 @@ if [ ! -f /var/www/html/wp-config.php ]; then
         --admin_user="$WP_ADMIN_USER" \
         --admin_password="$WP_ADMIN_PASSWORD" \
         --admin_email="$WP_ADMIN_EMAIL" \
-        --path='/var/www/html'
+        --path='/var/www/wordpress'
 
     wp user create \
         "$WP_USER" "$WP_EMAIL" \
         --role=author \
         --user_pass="$WP_PASSWORD" \
         --allow-root \
-        --path='/var/www/html'
+        --path='/var/www/wordpress'
 fi
 
-chown -R www-data:www-data /var/www/html
+chown -R www-data:www-data /var/www/wordpress
 
 # Start PHP-FPM in foreground
 exec php-fpm8.2 -F

@@ -20,7 +20,7 @@ RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.ph
 # Ensure runtime directory exists
 RUN mkdir -p /run/php
 
-WORKDIR /var/www/html
+WORKDIR /var/www/wordpress
 
 # Copy configuration and entrypoint script
 COPY conf/www.conf /etc/php/8.2/fpm/pool.d/www.conf

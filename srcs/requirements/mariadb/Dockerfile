@@ -3,10 +3,10 @@ FROM debian:bookworm
 RUN apt update 
 RUN apt install -y mariadb-server mariadb-client 
 
-COPY conf/mariadb.conf  /etc/mysql/conf.d/
 
-# COPY conf/mariadb.conf /etc/mysql/mariadb.conf.d/50-server.cnf
-COPY tools/mariadb.sh /usr/local/bin/init-db.sh
+
+COPY	conf/50-server.cnf  /etc/mysql/mariadb.conf.d/50-server.cnf
+COPY    tools/mariadb.sh /usr/local/bin/init-db.sh
 
 RUN chmod +x /usr/local/bin/init-db.sh
 
