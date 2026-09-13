@@ -10,8 +10,8 @@ if [ ! -d "/var/lib/mysql/mysql" ]; then
     mariadb-install-db \
         --user=mysql \
         --datadir=/var/lib/mysql
-
 fi
+
 mariadbd --user=mysql --bootstrap <<EOF
 FLUSH PRIVILEGES;
 CREATE DATABASE IF NOT EXISTS \`${MYSQL_DATABASE}\`;

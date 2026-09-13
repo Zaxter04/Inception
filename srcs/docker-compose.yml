@@ -36,6 +36,9 @@ services:
       - inception
     env_file:
       - .env
+    secrets:
+      - db_secrets
+      - db_secrets_root
 
 volumes:
   wordpress_data:
@@ -55,3 +58,9 @@ volumes:
 networks:
   inception:
     driver: bridge
+
+secrets:
+  db_secrets:
+    file: ../secrets/db_password.txt
+  db_secrets_root:
+    file: ../secrets/db_root_password.txt
