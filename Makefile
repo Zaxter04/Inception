@@ -1,14 +1,16 @@
-NAME		= inception
-COMPOSE		= docker compose -f srcs/docker-compose.yml
+NAME = inception
 
-DATA_DIR	= $(HOME)/data
-WP_DATA		= $(DATA_DIR)/wordpress
-DB_DATA		= $(DATA_DIR)/mariadb
+COMPOSE = docker compose -f srcs/docker-compose.yml
+
+DATA_DIR = $(HOME)/data
+WP_DATA = $(DATA_DIR)/wordpress
+DB_DATA = $(DATA_DIR)/mariadb
+
 
 all: up
 
 up:
-	@mkdir -p $(WP_DATA) $(DB_DATA)
+	mkdir -p $(WP_DATA) $(DB_DATA)
 	$(COMPOSE) up -d --build
 
 build:
@@ -43,5 +45,6 @@ fclean:
 re:
 	$(MAKE) fclean
 	$(MAKE) all
+
 
 .PHONY: all up build down start stop restart logs ps clean fclean re

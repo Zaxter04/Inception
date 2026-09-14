@@ -9,7 +9,7 @@ services:
     ports:
       - "443:443"
     volumes:
-      - wordpress_data:/var/www/wordpress
+      - wordpress_data:/var/www/html
     networks:
       - inception
     restart: always
@@ -21,7 +21,7 @@ services:
     depends_on:
       - mariadb
     volumes:
-      - wordpress_data:/var/www/wordpress
+      - wordpress_data:/var/www/html
     networks:
       - inception
     env_file:
@@ -48,6 +48,7 @@ services:
     restart: always
 
 volumes:
+
   wordpress_data:
     driver: local
     driver_opts:
@@ -63,15 +64,20 @@ volumes:
       device: /home/zasoulai/data/mariadb
 
 networks:
+
   inception:
     driver: bridge
 
 secrets:
+
   db_password:
     file: ../secrets/db_password.txt
+
   db_password_root:
     file: ../secrets/db_root_password.txt
+
   wp_admin_password:
     file: ../secrets/wp_admin_password.txt
+
   wp_password:
     file: ../secrets/wp_password.txt
